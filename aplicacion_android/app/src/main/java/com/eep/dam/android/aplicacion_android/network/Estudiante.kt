@@ -4,11 +4,11 @@ import kotlinx.serialization.Serializable
 @Serializable
 data class Estudiante(
     val idEstudiante: Int,
-    val nombre: String,
-    val apellido: String,
-    val fechaNacimiento: String,
-    val email: String,
-    val curso: String?,
-    val grado: String?
+    var nombre: String,
+    var apellido: String,
+    var fechaNacimiento: String,
+    var email: String,
+    var curso: String?,
+    var grado: String?
 )
 
