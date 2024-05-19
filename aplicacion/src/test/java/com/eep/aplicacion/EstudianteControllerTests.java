@@ -32,12 +32,12 @@ public class EstudianteControllerTests {
    
     @Test
     public void shouldReturnAllEstudiantes() throws Exception {
-        Estudiante estudiante = new Estudiante(); // Assume a constructor or use setters to set up data
+        Estudiante estudiante = new Estudiante(); 
         estudiante.setNombre("Juan");
 
         given(estudianteService.getAllEstudiantes()).willReturn(Collections.singletonList(estudiante));
 
-        mockMvc.perform(get("/api_estudiantes")
+        mockMvc.perform(get("/api_estudiantes/")
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$[0].nombre").value("Juan"))
@@ -48,7 +48,7 @@ public class EstudianteControllerTests {
     public void shouldReturnEmptyListIfNoEstudiantesFound() throws Exception {
         given(estudianteService.getAllEstudiantes()).willReturn(Collections.emptyList());
 
-        mockMvc.perform(get("/api_estudiantes")
+        mockMvc.perform(get("/api_estudiantes/")
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$").isEmpty());
@@ -72,7 +72,7 @@ public class EstudianteControllerTests {
     public void shouldReturnNotFoundIfEstudianteDoesNotExist() throws Exception {
         given(estudianteService.getEstudianteById(1L)).willReturn(Optional.empty());
 
-        mockMvc.perform(get("/api_estudiantes/1")
+        mockMvc.perform(get("/api_estudiantes/100")
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isNotFound());
     }
@@ -85,7 +85,7 @@ public class EstudianteControllerTests {
 
         given(estudianteService.saveEstudiante(any(Estudiante.class))).willReturn(estudiante);
 
-        mockMvc.perform(post("/api_estudiantes")
+        mockMvc.perform(post("/api_estudiantes/create")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content("{\"nombre\":\"Juan\"}"))
                 .andExpect(status().isCreated())
@@ -116,7 +116,7 @@ public class EstudianteControllerTests {
     public void shouldReturnNotFoundWhenUpdatingNonExistentEstudiante() throws Exception {
         given(estudianteService.getEstudianteById(1L)).willReturn(Optional.empty());
 
-        mockMvc.perform(put("/api_estudiantes/1")
+        mockMvc.perform(put("/api_estudiantes/100")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content("{\"nombre\":\"Juan\"}"))
                 .andExpect(status().isNotFound());

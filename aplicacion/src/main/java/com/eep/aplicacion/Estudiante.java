@@ -34,7 +34,7 @@ public class Estudiante {
 	@Column(name = "grado")
 	private String grado;
 
-	// constructor para hacer la aplicacion
+	
 	public Estudiante() {
 	}
 
